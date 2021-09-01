@@ -5,7 +5,7 @@ import com.restaurant.eRestaurant.model.Person;
 
 import java.util.Optional;
 
-public interface PersonRepo extends JpaRepository<Person, Long> {
+public interface PersonRepository extends JpaRepository<Person, Long> {
     void deletePersonById(Long id);
 
     Optional<Person> findPersonById(Long id);
