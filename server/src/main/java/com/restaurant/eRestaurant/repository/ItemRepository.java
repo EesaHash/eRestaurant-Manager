@@ -7,4 +7,5 @@ import java.io.Serializable;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
+
 }
