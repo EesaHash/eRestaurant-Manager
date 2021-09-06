@@ -17,9 +17,9 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @GetMapping
-    public String getPerson(Model model) {
-        model.addAttribute("something", personService.findAll());
-        return "people";
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
+
 }

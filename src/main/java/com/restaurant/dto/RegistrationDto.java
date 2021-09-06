@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor @Getter @Setter
-public class PersonRegistrationDto {
+public class RegistrationDto {
     private String firstName;
     private String lastName;
+    private String email;
     private String password;
+    private String phone;
 }

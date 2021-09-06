@@ -1,11 +1,14 @@
 package com.restaurant.service;
 
+import com.restaurant.dto.RegistrationDto;
 import com.restaurant.model.Person;
+import com.restaurant.model.Role;
 import com.restaurant.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +22,10 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-    public Person addPerson(Person person) {
+    public Person addPerson(RegistrationDto registration) {
+        Person person = new Person(registration.getFirstName(),registration.getLastName(),
+                registration.getEmail(),registration.getPassword(),
+                registration.getPhone(), Arrays.asList(new Role("CUSTOMER")));
         return personRepository.save(person);
     }
 
@@ -34,5 +40,4 @@ public class PersonService {
     public Optional<Person> findPerson(Long id) {
         return personRepository.findById(id);
     }
-
 }
