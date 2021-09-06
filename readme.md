@@ -1,13 +1,13 @@
-#eRestaurant Application
+# eRestaurant Application
 
 Online ordering and booking application for a restaurant
 
-##Frameworks Used
+## Frameworks Used
 1)Spring Boot
 2)Spring JPA
 3)Thymeleaf
 
-##Other information
+## Other information
 
 Prequisites (to run the application):
 Install mySQL and create a database with the name "erestaurant"
