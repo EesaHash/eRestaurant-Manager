@@ -4,7 +4,6 @@ import com.restaurant.dto.RegistrationDto;
 import com.restaurant.model.Person;
 import com.restaurant.model.Role;
 import com.restaurant.repository.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,21 +12,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Service @Transactional
+@Service
 public class PersonService implements UserDetailsService {
 
     private final PersonRepository personRepository;
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    private BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
@@ -39,22 +36,18 @@ public class PersonService implements UserDetailsService {
         return personRepository.save(person);
     }
 
-    public List<Person> findAll() {
-        return personRepository.findAll();
-    }
-
     public void deletePerson(Long id) {
         personRepository.deleteById(id);
     }
 
-    public Optional<Person> findPerson(Long id) {
-        return personRepository.findById(id);
+    public List<Person> findAll() {
+        return personRepository.findAll();
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Person> optionalPerson = personRepository.findPersonByEmail(email);
-        //Alternatively use !isFount()
+        //Alternatively use !isFound()
         if (optionalPerson.isEmpty()) {
             throw new UsernameNotFoundException("Invalid Email or Password");
         }

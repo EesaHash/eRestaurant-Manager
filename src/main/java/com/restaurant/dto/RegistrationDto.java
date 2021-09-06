@@ -1,14 +1,12 @@
 package com.restaurant.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@AllArgsConstructor @Getter @Setter
+@NoArgsConstructor @AllArgsConstructor @Getter @Setter @ToString
 public class RegistrationDto {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
     private String phone;
+    private String password;
 }

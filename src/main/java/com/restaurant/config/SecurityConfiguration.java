@@ -1,6 +1,7 @@
 package com.restaurant.config;
 
 import com.restaurant.service.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -11,15 +12,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final PersonService personService;
-
-    public SecurityConfiguration(PersonService personService) {
-        this.personService = personService;
-    }
+    @Autowired
+    private PersonService personService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
