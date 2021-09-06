@@ -21,5 +21,4 @@ public class PersonController {
     public String login() {
         return "login";
     }
-
 }
