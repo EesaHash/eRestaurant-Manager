@@ -34,7 +34,9 @@ public class RegistrationController {
         System.out.println(registrationDto.toString());
         //RegistrationDto reg = new RegistrationDto("Eesa","Hash",
        ///         "eesa6000@gmail.com","test123","04232342");
-        personService.addPerson(registrationDto);
-        return "redirect:/registration?success";
+        if (personService.addPerson(registrationDto) != null) {
+            return "redirect:/registration?success";
+        }
+        return "redirect:/registration?fail";
     }
 }

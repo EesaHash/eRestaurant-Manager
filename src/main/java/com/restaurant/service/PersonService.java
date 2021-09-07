@@ -30,6 +30,9 @@ public class PersonService implements UserDetailsService {
     }
     //password encoded
     public Person addPerson(RegistrationDto registration) {
+        if (personRepository.findPersonByEmail(registration.getEmail()).isPresent()) {
+            return null;
+        }
         Person person = new Person(registration.getFirstName(),registration.getLastName(),
                 registration.getEmail(),passwordEncoder.encode(registration.getPassword()),
                 registration.getPhone(), Arrays.asList(new Role("CUSTOMER")));
