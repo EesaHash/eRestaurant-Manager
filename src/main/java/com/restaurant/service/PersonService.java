@@ -28,7 +28,7 @@ public class PersonService implements UserDetailsService {
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
-
+    //password encoded
     public Person addPerson(RegistrationDto registration) {
         Person person = new Person(registration.getFirstName(),registration.getLastName(),
                 registration.getEmail(),passwordEncoder.encode(registration.getPassword()),

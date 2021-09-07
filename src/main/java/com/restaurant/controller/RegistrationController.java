@@ -33,7 +33,7 @@ public class RegistrationController {
     public String registerUserAccount(@ModelAttribute("user") RegistrationDto registrationDto) {
         System.out.println(registrationDto.toString());
         //RegistrationDto reg = new RegistrationDto("Eesa","Hash",
-       //         "eesa6000@gmail.com","test123","04232342");
+       ///         "eesa6000@gmail.com","test123","04232342");
         personService.addPerson(registrationDto);
         return "redirect:/registration?success";
     }
