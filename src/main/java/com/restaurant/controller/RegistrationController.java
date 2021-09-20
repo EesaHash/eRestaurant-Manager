@@ -31,7 +31,6 @@ public class RegistrationController {
 
     @PostMapping
     public String registerUserAccount(@ModelAttribute("user") RegistrationDto registrationDto) {
-        System.out.println(registrationDto.toString());
         //RegistrationDto reg = new RegistrationDto("Eesa","Hash",
        ///         "eesa6000@gmail.com","test123","04232342");
         if (personService.addPerson(registrationDto) != null) {
