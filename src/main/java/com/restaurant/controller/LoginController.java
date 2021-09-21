@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller @Slf4j
-public class PersonController {
+public class LoginController {
 
     private final PersonService personService;
 
     @Autowired
-    public PersonController (PersonService personService) {
+    public LoginController(PersonService personService) {
         this.personService = personService;
     }
 
@@ -34,5 +34,4 @@ public class PersonController {
          */
         return "index";
     }
-
 }

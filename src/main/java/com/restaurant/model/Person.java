@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
-@Getter @Setter @ToString @NoArgsConstructor
+@NoArgsConstructor @Getter @Setter
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Person implements Serializable {
     @Id
