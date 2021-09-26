@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.data:spring-data-jpa:2.6.0-M2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-jpa/2.6.0-M2/7a3ac4a79e779a65ac20645ef4e9a299e5e39ff3/spring-data-jpa-2.6.0-M2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-jpa/2.6.0-M2/4cea8cdb67349c04ce681ad93edcf3278cd40c0/spring-data-jpa-2.6.0-M2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
