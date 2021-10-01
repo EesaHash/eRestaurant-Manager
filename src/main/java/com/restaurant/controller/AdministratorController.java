@@ -21,8 +21,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import static java.rmi.server.LogStream.log;
-
 @Controller @Slf4j
 public class AdministratorController {
 
@@ -98,7 +96,8 @@ public class AdministratorController {
         meal.setName(mealDTO.getName());
         meal.setCategory(categoryService.retrieveCategoryByID(mealDTO.getCategoryId()).get());
         meal.setPrice(mealDTO.getPrice());
-        meal.setWeight(mealDTO.getWeight());
+        meal.setCalories(mealDTO.getCalories());
+        log.info(String.valueOf(mealDTO.getCalories()));
         meal.setDescription(mealDTO.getDescription());
         /*
         Saving image to static/productImages
@@ -137,7 +136,7 @@ public class AdministratorController {
         mealDTO.setName(product.getName());
         mealDTO.setCategoryId(product.getCategory().getId());
         mealDTO.setPrice(product.getPrice());
-        mealDTO.setWeight(product.getWeight());
+        mealDTO.setCalories(product.getCalories());
         mealDTO.setDescription(product.getDescription());
         mealDTO.setImageLink(mealDTO.getImageLink());
 

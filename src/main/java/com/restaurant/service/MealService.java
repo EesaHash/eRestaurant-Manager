@@ -30,7 +30,7 @@ public class MealService {
         return mealRepository.findById(id);
     }
 
-    public List<Meal> getMealsBy(int id) {
+    public List<Meal> getMealsByCategory(int id) {
         return mealRepository.findMealsByCategoryId(id);
     }
 

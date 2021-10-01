@@ -27,14 +27,14 @@ public class PersonService implements UserDetailsService {
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    //password encoded
+
     public Person addPerson(RegistrationDTO registration) {
         if (personRepository.findPersonByEmail(registration.getEmail()).isPresent()) {
             return null;
         }
         Person person = new Person(registration.getFirstName(),registration.getLastName(),
-                registration.getEmail(),passwordEncoder.encode(registration.getPassword()),
-                registration.getPhone(), Arrays.asList(new Role("CUSTOMER")));
+                registration.getEmail(),passwordEncoder.encode(registration.getPassword()), //password encoded
+                registration.getPhone(), Arrays.asList(new Role("ROLE_USER")));
         return personRepository.save(person);
     }
 

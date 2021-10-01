@@ -8,7 +8,7 @@ public class MealDTO {
     private String name;
     private int categoryId;
     private double price;
-    private double weight;
+    private double calories;
     private String description;
     private String imageLink;
 }

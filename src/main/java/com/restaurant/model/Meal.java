@@ -19,7 +19,7 @@ public class Meal {
     )
     private Category category;
     private double price;
-    private double weight;
+    private double calories;
     private String description;
     private String imageLink;
 }

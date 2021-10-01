@@ -1,27 +1,17 @@
 package com.restaurant.controller;
 
-import com.restaurant.service.PersonService;
+import com.restaurant.global.GlobalData;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller @Slf4j
 public class LoginController {
 
-    private final PersonService personService;
-
-    @Autowired
-    public LoginController(PersonService personService) {
-        this.personService = personService;
-    }
-
     @GetMapping("/login")
     public String login() {
+        GlobalData.cart.clear();
         return "login";
     }
 
