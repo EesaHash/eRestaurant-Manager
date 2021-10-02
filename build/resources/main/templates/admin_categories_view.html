@@ -47,7 +47,7 @@
         <tbody>
 
         <tr th:each="category, iStat : ${categories}">
-            <th scope="row" th:text="${iStat.index + 1}">1</th>
+            <th scope="row" th:text="${iStat.index + 1}" ></th>
             <td th:text="${category.title}"></td>
 
             <td><a href="" th:href="@{/admin/categories/delete/{id}(id=${category.id})}" class="btn btn-outline-danger">Delete</a></td>

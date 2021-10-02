@@ -41,12 +41,11 @@
     <div class="row">
         <div class="col-sm-4">
             <form th:action="@{/admin/categories/add}" method="post" th:object="${category}">
-                <input type="hidden" name="id"  th:field="*{id}">
+                <input type="hidden" th:field="*{id}">
                 <div class="form-group">
-                    <label for="name">Add Category</label>
-                    <input type="text" class="form-control" required th:field="*{title}" name="name" id="name" placeholder="">
+                    <label>Add Category</label>
+                    <input type="text" class="form-control" required th:field="*{title}" placeholder="">
                 </div>
-                <br>
                 <button type="submit" class="btn btn-outline-success">Submit</button>
             </form>
         </div>
