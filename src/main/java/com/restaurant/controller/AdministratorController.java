@@ -140,6 +140,7 @@ public class AdministratorController {
         mealDTO.setDescription(product.getDescription());
         mealDTO.setImageLink(mealDTO.getImageLink());
 
+
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("mealDTO", mealDTO);
 
