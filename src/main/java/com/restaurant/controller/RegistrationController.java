@@ -1,6 +1,6 @@
 package com.restaurant.controller;
 
-import com.restaurant.dto.RegistrationDto;
+import com.restaurant.dto.RegistrationDTO;
 import com.restaurant.service.PersonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +20,8 @@ public class RegistrationController {
     }
 
     @ModelAttribute("user")
-    public RegistrationDto personRegistrationDto() {
-        return new RegistrationDto();
+    public RegistrationDTO personRegistrationDto() {
+        return new RegistrationDTO();
     }
 
     @GetMapping
@@ -30,10 +30,7 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public String registerUserAccount(@ModelAttribute("user") RegistrationDto registrationDto) {
-        System.out.println(registrationDto.toString());
-        //RegistrationDto reg = new RegistrationDto("Eesa","Hash",
-       ///         "eesa6000@gmail.com","test123","04232342");
+    public String registerUserAccount(@ModelAttribute("user") RegistrationDTO registrationDto) {
         if (personService.addPerson(registrationDto) != null) {
             return "redirect:/registration?success";
         }

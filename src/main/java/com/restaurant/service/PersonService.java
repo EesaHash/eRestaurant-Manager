@@ -1,9 +1,10 @@
 package com.restaurant.service;
 
-import com.restaurant.dto.RegistrationDto;
+import com.restaurant.dto.RegistrationDTO;
 import com.restaurant.model.Person;
 import com.restaurant.model.Role;
 import com.restaurant.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,21 +22,19 @@ import java.util.stream.Collectors;
 @Service
 public class PersonService implements UserDetailsService {
 
-    private final PersonRepository personRepository;
+    @Autowired
+    PersonRepository personRepository;
+
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
-    public PersonService(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
-    //password encoded
-    public Person addPerson(RegistrationDto registration) {
+    public Person addPerson(RegistrationDTO registration) {
         if (personRepository.findPersonByEmail(registration.getEmail()).isPresent()) {
             return null;
         }
         Person person = new Person(registration.getFirstName(),registration.getLastName(),
-                registration.getEmail(),passwordEncoder.encode(registration.getPassword()),
-                registration.getPhone(), Arrays.asList(new Role("CUSTOMER")));
+                registration.getEmail(),passwordEncoder.encode(registration.getPassword()), //password encoded
+                registration.getPhone(), Arrays.asList(new Role("ROLE_USER")));
         return personRepository.save(person);
     }
 
