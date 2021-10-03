@@ -21,6 +21,7 @@ public class CartController {
         return "redirect:/menu";
     }
 
+
     @GetMapping("/cart")
     public String viewCart(Model model) {
         model.addAttribute("cartCount", GlobalData.cart.size());

@@ -35,11 +35,11 @@
 
 <div class="container-fluid">
 
-    <a th:href="@{/admin/meals/add}" style="margin: 20px 0" class="btn btn-outline-primary">Add Product</a>
+    <a th:href="@{/admin/meals/add}" style="margin: 20px 0" class="btn btn-primary">Add Product</a>
     <table class="table">
         <thead class="thead-light">
         <tr>
-            <th scope="col">#</th>
+            <th scope="col">SN</th>
             <th scope="col">Product Name</th>
             <th scope="col">Category</th>
             <th scope="col">Preview</th>
@@ -55,8 +55,8 @@
             <td th:text="${meal.category.title}"></td>
             <td><img src="" height="100px" width="100px"  th:src="@{${'/images/' + meal.imageLink}}"></td>
 
-            <td><a href="" th:href="@{/admin/meal/delete/{id}(id=${meal.id})}" class="btn btn-outline-danger">Delete</a></td>
-            <td><a href="" th:href="@{/admin/meal/update/{id}(id=${meal.id})}" class="btn btn-outline-warning">Update</a></td>
+            <td><a href="" th:href="@{/admin/meal/delete/{id}(id=${meal.id})}" class="btn btn-danger">Delete</a></td>
+            <td><a href="" th:href="@{/admin/meal/update/{id}(id=${meal.id})}" class="btn btn-warning">Update</a></td>
 
         </tr>
         </tbody>
