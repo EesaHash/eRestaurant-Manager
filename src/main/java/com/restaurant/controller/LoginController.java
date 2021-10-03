@@ -22,6 +22,6 @@ public class LoginController {
         log.info( principal.toString());
         To get currently logged in user's email
          */
-        return "index";
+        return "menu";
     }
 }
