@@ -18,6 +18,14 @@ public class BookingService {
     }
 
     public Booking addBooking(Booking booking){ return bookingRepo.save(booking);}
-    public void deleteBooking(Long id) { bookingRepo.deleteBookingById((id));}
+
     public List<Booking> findBookingByLName(String lName){return bookingRepo.findBookingByLName(lName);}
+
+    public List<Booking> findBookingByDate(Date date){return  bookingRepo.findBookingByDate(date);}
+
+    public List<Booking> getAllBookings(){return  bookingRepo.findAll();}
+
+    public Booking updateBooking(Booking booking){return bookingRepo.save(booking);}
+
+    public void deleteBooking(Long id) { bookingRepo.deleteBookingById((id));}
 }

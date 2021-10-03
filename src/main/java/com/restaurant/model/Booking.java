@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.UUID;
 
 @Entity
-@Getter @Setter @ToString @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 
 public class Booking implements Serializable {
     @Id
