@@ -44,22 +44,10 @@ public class AdministratorController {
         return "admin_categories_view";
     }
 
-    @GetMapping("/admin/table")
-    public String viewTables(Model model){
-        model.addAttribute("tables", tableService.getAllTable());
-        return "admin_table_view";
-    }
-
     @GetMapping("/admin/categories/add")
     public String addCategories(Model model) {
         model.addAttribute("category", new Category());
         return "admin_categories_add";
-    }
-
-    @GetMapping("/admin/table/add")
-    public String addTable(Model model) {
-        model.addAttribute("tables", new Tables());
-        return "admin_table_add";
     }
 
     @PostMapping("/admin/categories/add")
@@ -68,22 +56,10 @@ public class AdministratorController {
         return "redirect:/admin/categories";
     }
 
-    @PostMapping("/admin/table/add")
-    public String newCategory(@ModelAttribute("tables") Tables table) {
-        tableService.addTable(table);
-        return "redirect:/admin/table";
-    }
-
     @GetMapping("/admin/categories/delete/{id}")
     public String deleteCategory(@PathVariable int id) {
         categoryService.removeCategoryById(id);
         return "redirect:/admin/categories";
-    }
-
-    @GetMapping("/admin/table/delete/{id}")
-    public String deleteTable(@PathVariable int id) {
-        tableService.removeTableById(id);
-        return "redirect:/admin/table";
     }
 
     @GetMapping("/admin/categories/update/{id}")
@@ -94,6 +70,31 @@ public class AdministratorController {
             return "admin_categories_add";
         }
         return "redirect:/admin/categories/add?fail";
+    }
+
+    //Handle Table
+    @GetMapping("/admin/table")
+    public String viewTables(Model model){
+        model.addAttribute("tables", tableService.getAllTable());
+        return "admin_table_view";
+    }
+
+    @GetMapping("/admin/table/add")
+    public String addTable(Model model) {
+        model.addAttribute("tables", new Tables());
+        return "admin_table_add";
+    }
+
+    @PostMapping("/admin/table/add")
+    public String newCategory(@ModelAttribute("tables") Tables table) {
+        tableService.addTable(table);
+        return "redirect:/admin/table";
+    }
+
+    @GetMapping("/admin/table/delete/{id}")
+    public String deleteTable(@PathVariable int id) {
+        tableService.removeTableById(id);
+        return "redirect:/admin/table";
     }
 
     @GetMapping("/admin/table/update/{id}")
