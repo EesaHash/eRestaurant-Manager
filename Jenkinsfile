@@ -6,12 +6,12 @@
                                  stages {
                                      stage('Build') {
                                          steps {
-                                             sh './gradlew clean assemble'
+                                             sh './gradlew assemble'
                                          }
                                      }
                                      stage('Test') {
                                          steps {
-                                             sh './gradlew clean test'
+                                             sh './gradlew test'
                                          }
                                      }
                                  }
