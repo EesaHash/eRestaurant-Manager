@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-
 @Service
 public class BookingService {
     private final BookingRepo bookingRepo;
@@ -19,7 +18,7 @@ public class BookingService {
 
     public Booking addBooking(Booking booking){ return bookingRepo.save(booking);}
 
-    public List<Booking> findBookingByLName(String lName){return bookingRepo.findBookingByLName(lName);}
+    //public Optional<Booking> findBookingByLName(String lName){return bookingRepo.findBookingByLName(lName);}
 
     public List<Booking> findBookingByDate(Date date){return  bookingRepo.findBookingByDate(date);}
 

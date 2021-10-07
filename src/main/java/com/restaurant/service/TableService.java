@@ -10,8 +10,10 @@ import java.util.Optional;
 
 @Service
 public class TableService {
+    private final TableRepo tableRepo;
+
     @Autowired
-    TableRepo tableRepo;
+    public TableService(TableRepo tableRepo) { this.tableRepo = tableRepo;}
 
     public void addTable(TableModel tableModel){tableRepo.save(tableModel);}
 

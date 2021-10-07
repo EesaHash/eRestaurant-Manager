@@ -28,11 +28,11 @@ public class BookingController {
         return "bookings";
     }
 
-    @GetMapping("/bookings/{lName}")
-    public String getBookingById(String lName){
-        bookingService.findBookingByLName(lName);
-        return "bookings";
-    }
+//    @GetMapping("/bookings/{lName}")
+//    public String getBookingById(String lName){
+//        bookingService.findBookingByLName(lName);
+//        return "bookings";
+//    }
 
     @GetMapping("/bookings/{date}")
     public String getBookingByDate(Date date){
@@ -40,10 +40,16 @@ public class BookingController {
         return "bookings";
     }
 
+    @GetMapping("/booking/create")
+    public String createBooking(Model model){
+        model.addAttribute("booking", new Booking());
+        return "booking_create";
+    }
+
     @PostMapping("/bookings/create")
-    public String createBooking(@ModelAttribute("booking") Booking booking){
+    public String saveBooking(@ModelAttribute("booking") Booking booking){
         bookingService.addBooking(booking);
-        return "bookings_view";
+        return "booking_view";
     }
 
 //    @PutMapping("/bookings/update")
