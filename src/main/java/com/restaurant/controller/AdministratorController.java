@@ -4,8 +4,10 @@ package com.restaurant.controller;
 import com.restaurant.dto.MealDTO;
 import com.restaurant.model.Category;
 import com.restaurant.model.Meal;
+import com.restaurant.model.Tables;
 import com.restaurant.service.CategoryService;
 import com.restaurant.service.MealService;
+import com.restaurant.service.TableService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,8 @@ public class AdministratorController {
     CategoryService categoryService;
     @Autowired
     MealService mealService;
+    @Autowired
+    TableService tableService;
 
     @GetMapping("/admin")
     public String viewAdmin() {
@@ -66,6 +70,41 @@ public class AdministratorController {
             return "admin_categories_add";
         }
         return "redirect:/admin/categories/add?fail";
+    }
+
+    //Handle Table
+    @GetMapping("/admin/table")
+    public String viewTables(Model model){
+        model.addAttribute("tables", tableService.getAllTable());
+        return "admin_table_view";
+    }
+
+    @GetMapping("/admin/table/add")
+    public String addTable(Model model) {
+        model.addAttribute("tables", new Tables());
+        return "admin_table_add";
+    }
+
+    @PostMapping("/admin/table/add")
+    public String newCategory(@ModelAttribute("tables") Tables table) {
+        tableService.addTable(table);
+        return "redirect:/admin/table";
+    }
+
+    @GetMapping("/admin/table/delete/{id}")
+    public String deleteTable(@PathVariable int id) {
+        tableService.removeTableById(id);
+        return "redirect:/admin/table";
+    }
+
+    @GetMapping("/admin/table/update/{id}")
+    public String updateTable(@PathVariable int id, Model model) {
+        Optional<Tables> table = tableService.retrieveTableByID(id);
+        if (table.isPresent()) {
+            model.addAttribute("tables",table.get());
+            return "admin_table_add";
+        }
+        return "redirect:/admin/table/add?fail";
     }
 
     /*
@@ -139,6 +178,7 @@ public class AdministratorController {
         mealDTO.setCalories(product.getCalories());
         mealDTO.setDescription(product.getDescription());
         mealDTO.setImageLink(mealDTO.getImageLink());
+
 
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("mealDTO", mealDTO);

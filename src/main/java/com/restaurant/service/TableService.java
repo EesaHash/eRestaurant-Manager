@@ -1,25 +1,36 @@
 package com.restaurant.service;
 
-import com.restaurant.model.TableModel;
-import com.restaurant.repository.TableRepo;
+import com.restaurant.model.Category;
+import com.restaurant.model.Tables;
+import com.restaurant.repository.TableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Table;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class TableService {
-    private final TableRepo tableRepo;
 
     @Autowired
-    public TableService(TableRepo tableRepo) { this.tableRepo = tableRepo;}
+    TableRepository tableRepository;
 
-    public void addTable(TableModel tableModel){tableRepo.save(tableModel);}
+    public List<Tables> getAllTable() {
+        return tableRepository.findAll();
+    }
 
-    public List<TableModel> getAllTables(){return  tableRepo.findAll();}
+    public void addTable(Tables table) {
+        tableRepository.save(table);
+    }
 
-    public Optional<TableModel> getTableById(Long id){return tableRepo.findById(id);}
+    public void removeTableById(int id) {
+        tableRepository.deleteById(id);
+    }
 
-    public void updateTable(TableModel tableModel){tableRepo.save(tableModel);}
+    public Optional<Tables> retrieveTableByID(int id) {
+        return tableRepository.findById(id);
+    }
+
 }
+

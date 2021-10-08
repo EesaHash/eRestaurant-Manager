@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <img th:src="@{/images/logo.png}"  src="../static/images/logo.png" width="auto" height="40" class="d-inline-block align-top" alt=""/>
-            Le'Bistrot de Andre
+            <a>Le'Bistrot de Andre</a>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -41,10 +41,10 @@
     <div class="row">
         <div class="col-sm-4">
             <form th:action="@{/admin/categories/add}" method="post" th:object="${category}">
-                <input type="hidden" th:field="*{id}">
+                <input type="hidden" name="id"  th:field="*{id}">
                 <div class="form-group">
-                    <label>Add Category</label>
-                    <input type="text" class="form-control" required th:field="*{title}" placeholder="">
+                    <label for="name">Add Category</label>
+                    <input type="text" class="form-control" required th:field="*{title}" name="name" id="name" placeholder="">
                 </div>
                 <button type="submit" class="btn btn-outline-success">Submit</button>
             </form>

@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <img th:src="@{/images/logo.png}"  src="../static/images/logo.png" width="auto" height="40" class="d-inline-block align-top" alt=""/>
-            Le'Bistrot de Andre
+            <a>Le'Bistrot de Andre</a>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -74,16 +74,17 @@
                 </div>
             </div>
         </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Bookings</h5>
-                        <p class="card-text">Manage Bookings, modify and cancel.</p>
-                        <a href="#" th:href="@{/admin/booking}" class="btn btn-primary">Manage</a>
-                    </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tables</h5>
+                    <p class="card-text">Add or remove table that available for the customers.</p>
+                    <a href="#" th:href="@{/admin/table}" class="btn btn-primary">Manage</a>
                 </div>
             </div>
-    </div>
+        </div>
+</div>
+
 
 </div>
 </body>

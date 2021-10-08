@@ -35,6 +35,5 @@ public class Person implements Serializable {
         this.phone = phone;
         this.roles = roles;
     }
-
 }
 
