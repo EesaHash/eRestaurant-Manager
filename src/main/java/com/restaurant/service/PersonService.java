@@ -5,8 +5,10 @@ import com.restaurant.model.Person;
 import com.restaurant.model.Role;
 import com.restaurant.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -44,6 +46,12 @@ public class PersonService implements UserDetailsService {
 
     public List<Person> findAll() {
         return personRepository.findAll();
+    }
+
+    public Optional<Person> getLoggedInPerson() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        return personRepository.findPersonByEmail(email);
     }
 
     @Override
