@@ -4,9 +4,11 @@ package com.restaurant.controller;
 import com.restaurant.dto.MealDTO;
 import com.restaurant.model.Category;
 import com.restaurant.model.Meal;
+import com.restaurant.model.Promo;
 import com.restaurant.model.Tables;
 import com.restaurant.service.CategoryService;
 import com.restaurant.service.MealService;
+import com.restaurant.service.PromoService;
 import com.restaurant.service.TableService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,8 @@ public class AdministratorController {
     MealService mealService;
     @Autowired
     TableService tableService;
+    @Autowired
+    PromoService promoService;
 
     @GetMapping("/admin")
     public String viewAdmin() {
@@ -86,7 +90,7 @@ public class AdministratorController {
     }
 
     @PostMapping("/admin/table/add")
-    public String newCategory(@ModelAttribute("tables") Tables table) {
+    public String newPromo(@ModelAttribute("tables") Tables table) {
         tableService.addTable(table);
         return "redirect:/admin/table";
     }
@@ -105,6 +109,40 @@ public class AdministratorController {
             return "admin_table_add";
         }
         return "redirect:/admin/table/add?fail";
+    }
+
+    @GetMapping("/admin/promo")
+    public String viewPromos(Model model){
+        model.addAttribute("promos", promoService.getAllPromo());
+        return "admin_promo_view";
+    }
+
+    @GetMapping("/admin/promo/add")
+    public String addPromo(Model model) {
+        model.addAttribute("promos", new Promo());
+        return "admin_promo_add";
+    }
+
+    @PostMapping("/admin/promo/add")
+    public String newPromo(@ModelAttribute("promos") Promo promo) {
+        promoService.addPromo(promo);
+        return "redirect:/admin/promo";
+    }
+
+    @GetMapping("/admin/promo/delete/{id}")
+    public String deletePromo(@PathVariable int id) {
+        promoService.removePromoById(id);
+        return "redirect:/admin/promo";
+    }
+
+    @GetMapping("/admin/promo/update/{id}")
+    public String updatePromo(@PathVariable int id, Model model) {
+        Optional<Promo> promo = promoService.retrievePromoByID(id);
+        if (promo.isPresent()) {
+            model.addAttribute("promos",promo.get());
+            return "admin_promo_add";
+        }
+        return "redirect:/admin/promo/add?fail";
     }
 
     /*
