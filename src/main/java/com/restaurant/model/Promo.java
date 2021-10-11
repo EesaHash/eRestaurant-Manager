@@ -16,4 +16,5 @@ public class Promo {
     private int id;
     private int code;
     private double percentage;
+    private String description;
 }

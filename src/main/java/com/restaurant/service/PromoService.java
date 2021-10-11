@@ -1,7 +1,6 @@
 package com.restaurant.service;
 
 import com.restaurant.model.Promo;
-import com.restaurant.model.Tables;
 import com.restaurant.repository.PromoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,8 @@ public class PromoService {
     public List<Promo> getAllPromo() {
         return promoRepository.findAll();
     }
+
+    public Promo findPromoByCode(int code){ return promoRepository.findPromoByCode(code);}
 
     public void addPromo(Promo promo) {
         promoRepository.save(promo);

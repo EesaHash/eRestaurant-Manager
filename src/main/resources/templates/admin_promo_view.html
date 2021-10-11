@@ -40,6 +40,7 @@
         <tr>
             <th scope="col">Promo Code</th>
             <th scope="col">Percentage</th>
+            <th scope="col">Description</th>
             <th scope="col"></th>
             <th scope="col"></th>
         </tr>
@@ -49,6 +50,7 @@
         <tr th:each="promo, iStat : ${promos}">
             <th scope="row" th:text="${promo.code}">X</th>
             <td th:text="${promo.percentage}"></td>
+            <td th:text="${promo.description}"></td>
 
             <td><a href="" th:href="@{/admin/promo/delete/{id}(id=${promo.id})}" class="btn btn-outline-danger">Delete</a></td>
             <td><a href="" th:href="@{/admin/promo/update/{id}(id=${promo.id})}" class="btn btn-outline-warning">Update</a></td>
