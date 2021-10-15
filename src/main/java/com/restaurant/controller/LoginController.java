@@ -12,7 +12,7 @@ public class LoginController {
     @GetMapping("/login")
     public String login() {
         GlobalData.cart.clear();
-        GlobalData.costAfterPromo = null;
+        GlobalData.costDeducted = null;
         return "login";
     }
 
