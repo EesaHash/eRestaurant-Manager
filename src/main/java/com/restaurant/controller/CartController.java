@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.DecimalFormat;
 
 @Controller
-public class CartController {
+public class CartController{
 
     @Autowired
     MealService mealService;
@@ -32,20 +32,19 @@ public class CartController {
     @GetMapping("/cart")
     public String viewCart(Model model) {
         model.addAttribute("cartCount", GlobalData.cart.size());
+        GlobalData.totalCost = GlobalData.cart.stream().mapToDouble(Meal::getPrice).sum();
 
-        if(GlobalData.costAfterPromo == null){
-            GlobalData.totalCost = GlobalData.cart.stream().mapToDouble(Meal::getPrice).sum();
-            model.addAttribute("total", GlobalData.totalCost);
+        if(GlobalData.costDeducted == null){
+            GlobalData.costAfterPromo = GlobalData.totalCost;
+            model.addAttribute("costAfterPromo", GlobalData.costAfterPromo);
         }else{
             DecimalFormat numberFormat = new DecimalFormat("#.00");
-            model.addAttribute("total", numberFormat.format(GlobalData.costAfterPromo));
-            GlobalData.totalCost = Double.parseDouble(numberFormat.format(GlobalData.costAfterPromo));
-            System.out.print(GlobalData.totalCost);
+            model.addAttribute("costDeducted", numberFormat.format(GlobalData.costDeducted));
+            model.addAttribute("costAfterPromo", numberFormat.format(GlobalData.costAfterPromo));
         }
-        model.addAttribute("newCost", GlobalData.costAfterPromo);
+        model.addAttribute("total", GlobalData.totalCost);
         model.addAttribute("cart", GlobalData.cart);
         model.addAttribute("promoDto", new PromoDTO());
-        System.out.print(GlobalData.totalCost);
         return "cart";
     }
 
@@ -59,7 +58,7 @@ public class CartController {
     public String applyCode(@RequestParam("code") int code){
         Promo promo1 = promoService.findPromoByCode(code);
         GlobalData.costAfterPromo = GlobalData.totalCost * promo1.getPercentage();
-        System.out.print(GlobalData.costAfterPromo);
+        GlobalData.costDeducted = GlobalData.totalCost - GlobalData.costAfterPromo;
         return "redirect:/cart";
     }
 
