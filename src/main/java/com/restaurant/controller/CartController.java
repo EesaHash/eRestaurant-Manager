@@ -22,7 +22,6 @@ public class CartController {
     @Autowired
     PromoService promoService;
 
-    Double newCost;
 
     @GetMapping("/addToCart/{id}")
     public String addToCart(@PathVariable int id) {
@@ -33,16 +32,17 @@ public class CartController {
     @GetMapping("/cart")
     public String viewCart(Model model) {
         model.addAttribute("cartCount", GlobalData.cart.size());
-        if(newCost == null){
+
+        if(GlobalData.costAfterPromo == null){
             GlobalData.totalCost = GlobalData.cart.stream().mapToDouble(Meal::getPrice).sum();
             model.addAttribute("total", GlobalData.totalCost);
         }else{
             DecimalFormat numberFormat = new DecimalFormat("#.00");
-            model.addAttribute("total", numberFormat.format(newCost));
-            GlobalData.totalCost = Double.parseDouble(numberFormat.format(newCost));
+            model.addAttribute("total", numberFormat.format(GlobalData.costAfterPromo));
+            GlobalData.totalCost = Double.parseDouble(numberFormat.format(GlobalData.costAfterPromo));
             System.out.print(GlobalData.totalCost);
         }
-        model.addAttribute("newCost", newCost);
+        model.addAttribute("newCost", GlobalData.costAfterPromo);
         model.addAttribute("cart", GlobalData.cart);
         model.addAttribute("promoDto", new PromoDTO());
         System.out.print(GlobalData.totalCost);
@@ -58,8 +58,8 @@ public class CartController {
     @PostMapping("/cart/applyCode")
     public String applyCode(@RequestParam("code") int code){
         Promo promo1 = promoService.findPromoByCode(code);
-        newCost = GlobalData.totalCost * promo1.getPercentage();
-        System.out.print(newCost);
+        GlobalData.costAfterPromo = GlobalData.totalCost * promo1.getPercentage();
+        System.out.print(GlobalData.costAfterPromo);
         return "redirect:/cart";
     }
 
