@@ -56,32 +56,29 @@
   <tr>
     <th></th>
     <th scope="col">Booking ID</th>
-    <th scope="col">Name</th>
+<!--    <th scope="col">First Name</th>-->
+<!--    <th scope="col">Last Name</th>-->
     <th scope="col">Date</th>
     <th scope="col">Time</th>
-    <th scope="col">People</th>
+    <th scope="col">Pax</th>
     <th scope="col">Notes</th>
   </tr>
   </thead>
-  <tbody>
 
-  <tr th:each="booking : ${bookings}">
-    <th scope="row" th:text="${iStat.index + 1}" ></th>
+  <tbody>
+  <tr th:each="booking, iStat : ${bookings}">
+    <th scope="row" th:text="${iStat.index + 1}" >1</th>
     <td th:text="${booking.id}"></td>
-    <td th:text="${booking.fName}"></td>
-    <td th:text="${booking.lName}"></td>
+<!--    <td th:text="${person.firstName}"></td>-->
+<!--    <td th:text="${person.lastName}"></td>-->
     <td th:text="${booking.date}"></td>
     <td th:text="${booking.time}"></td>
     <td th:text="${booking.numPeople}"></td>
     <td th:text="${booking.notes}"></td>
 
-
-    <td><a href="" th:href="@{/booking/delete/{id}(id=${booking.id})}" class="btn btn-outline-danger">X</a></td>
-    <td><a href="" th:href="@{/booking/{id}(id=${booking.id})}" class="btn btn-outline-warning">Update</a></td>
-
-  </tr>
+    <td><a href="" th:href="@{/booking/edit/{id}(id=${booking.id})}" class="btn btn-outline-warning">Edit</a></td>
+    <td><a href="" th:href="@{/booking/delete/{id}(id=${booking.id})}" class="btn btn-outline-danger">Cancel</a></td>
   </tbody>
 </table>
-
 </body>
 </html>

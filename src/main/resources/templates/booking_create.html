@@ -53,21 +53,13 @@
 
 <div class="container">
     <h3>New Booking</h3>
-    <form th:action="@{booking/create}" method="post" th:object="${bookingDTO}" enctype="multipart/form-data">
+    <form th:action="@{/booking/create}" method="post" th:object="${bookingDTO}" enctype="multipart/form-data">
         <div class="row">
             <div class="col-sm-5">
                 <input type="hidden" name="id" th:field="*{id}">
                 <div class="form-group">
-                    <label for="fName">First Name</label>
-                    <input type="text" class="form-control" required th:field="*{fName}" name="fName" id="fName">
-                </div>
-                <div class="form-group">
-                    <label for="lName">Last Name</label>
-                    <input type="text" class="form-control" required th:field="*{lName}" name="lName" id="lName">
-                </div>
-                <div class="form-group">
-                    <label for="numPeople">Number of Guests</label>
-                    <input type="number" class="form-control" required th:field="{*numPeople}" name="numPeople" id="numPeople">
+                    <label for="numPeople">People</label>
+                    <input type="number" class="form-control" required th:field="*{numPeople}" name="numPeople" id="numPeople">
                 </div>
                 <div class="form-group">
                     <label for="notes">Notes</label>
@@ -89,22 +81,20 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-primary" type="submit">book</button>
+        <button type="submit" class="btn btn-primary">book</button>
     </form>
-
 </div>
 
 <!--<script th:src="@{/webjars/jquery/jquery.min.js}"></script>-->
 <!--<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>-->
 <!--<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>-->
-<!--<script th:src="@{assets/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>-->
-
-<!--<script>-->
-<!--    $('.input-group.date').datepicker({-->
-<!--        autoclose: true,-->
-<!--        todayHighlight: true-->
-<!--    });-->
-<!--</script>-->
+<script th:src="@{assets/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+<script>
+    $('.input-group.date').datepicker({
+        autoclose: true,
+        todayHighlight: true
+    });
+</script>
 
 </body>
 </html>
