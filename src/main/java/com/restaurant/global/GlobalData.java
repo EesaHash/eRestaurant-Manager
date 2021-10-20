@@ -7,6 +7,9 @@ import java.util.List;
 
 public class GlobalData {
     public static List<Meal> cart;
+    public static double totalCost;
+    public static Double costDeducted;
+    public static Double costAfterPromo;
     static {
         cart = new ArrayList<Meal>();
     }

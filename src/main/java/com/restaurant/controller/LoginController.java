@@ -12,6 +12,7 @@ public class LoginController {
     @GetMapping("/login")
     public String login() {
         GlobalData.cart.clear();
+        GlobalData.costDeducted = null;
         return "login";
     }
 
@@ -22,6 +23,6 @@ public class LoginController {
         log.info( principal.toString());
         To get currently logged in user's email
          */
-        return "menu";
+        return "redirect:/menu";
     }
 }
