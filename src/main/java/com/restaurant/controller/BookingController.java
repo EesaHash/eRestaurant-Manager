@@ -86,7 +86,7 @@ public class BookingController {
                 return "booking_update";
             }
             bookingService.addBooking(booking);
-            model.addAttribute("booking", bookingService.getAllBookings());
+            model.addAttribute("bookingDTO", bookingService.getAllBookings());
         return"redirect:/booking/view";
     }
 
