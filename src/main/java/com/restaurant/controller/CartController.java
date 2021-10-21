@@ -7,6 +7,7 @@ import com.restaurant.model.Promo;
 import com.restaurant.service.MealService;
 import com.restaurant.service.PromoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -56,10 +57,16 @@ public class CartController{
 
     @PostMapping("/cart/applyCode")
     public String applyCode(@RequestParam("code") int code){
-        Promo promo1 = promoService.findPromoByCode(code);
-        GlobalData.costAfterPromo = GlobalData.totalCost * promo1.getPercentage();
+        GlobalData.promo = promoService.findPromoByCode(code);
+        if (GlobalData.promo == null) {
+            return "redirect:/cart?promoNotFound";
+        }
+        if (GlobalData.totalCost == 0) {
+            return "redirect:/cart?emptyCart";
+        }
+        GlobalData.costAfterPromo = GlobalData.totalCost * GlobalData.promo.getPercentage();
         GlobalData.costDeducted = GlobalData.totalCost - GlobalData.costAfterPromo;
-        return "redirect:/cart";
+        return "redirect:/cart?success";
     }
 
     @GetMapping("/checkout")
