@@ -15,5 +15,7 @@ public class GlobalData {
     static {
         promo = null;
         cart = new ArrayList<Meal>();
+        costDeducted = 0.0;
+        costAfterPromo = 0.0;
     }
 }
