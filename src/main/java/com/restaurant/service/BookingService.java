@@ -1,5 +1,6 @@
 package com.restaurant.service;
 
+import com.restaurant.dto.BookingDTO;
 import com.restaurant.model.Booking;
 import com.restaurant.repository.BookingRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class BookingService {
 
     public List<Booking> getAllBookings(){return  bookingRepo.findAll();}
 
-    public Booking updateBooking(Booking booking){return bookingRepo.save(booking);}
+   // public Booking updateBooking(BookingDTO bookingDTO){return bookingRepo.save(bookingDTO);}
 
     public void deleteBooking(int id) { bookingRepo.deleteById(id);}
 }

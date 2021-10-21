@@ -18,7 +18,7 @@ public class Booking implements Serializable {
     private int numPeople;
     @Basic
     @Temporal(TemporalType.DATE)
-    //@DateTimeFormat(pattern = "dd/MM/yyyy")
+
     private java.util.Date date;
     //@Temporal(TemporalType.TIME)
     private LocalTime time;

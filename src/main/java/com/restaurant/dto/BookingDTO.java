@@ -2,6 +2,7 @@ package com.restaurant.dto;
 
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Basic;
 import javax.persistence.Temporal;

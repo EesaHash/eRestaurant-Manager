@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.awt.print.Book;
 import java.io.IOException;
+import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
 
@@ -44,12 +46,16 @@ public class BookingController {
     @GetMapping("/booking/create")
     public String createBooking(Model model){
         model.addAttribute("bookingDTO", new BookingDTO());
+        model.addAttribute("minDate", LocalDate.now());
+//        Time minTime= Time.valueOf(LocalTime.now());
+//        model.addAttribute("minTime",minTime);
         return "booking_create";
     }
 
     @PostMapping("/booking/create")
     public String saveBooking(@ModelAttribute("bookingDTO") BookingDTO bookingDTO) throws IOException {
         Booking booking= new Booking();
+        booking.setNumPeople(bookingDTO.getNumPeople());
         booking.setDate(bookingDTO.getDate());
         booking.setTime(LocalTime.parse(bookingDTO.getTime()));
         booking.setNotes(bookingDTO.getNotes());
@@ -62,7 +68,13 @@ public class BookingController {
     public String showUpdateForm(@PathVariable ("id") int id,Model model){
         Booking booking= bookingService.findBookingById(id)
                 .orElseThrow(()-> new IllegalArgumentException("Invalid booking id"+ id));
-        model.addAttribute("booking", booking);
+        BookingDTO bookingDTO=new BookingDTO();
+        bookingDTO.setNumPeople(booking.getNumPeople());
+        bookingDTO.setDate(new java.sql.Date(booking.getDate().getTime()));
+        bookingDTO.setTime(booking.getTime().toString());
+        bookingDTO.setNotes(booking.getNotes());
+        model.addAttribute("bookingDTO", bookingDTO);
+        model.addAttribute("minDate", LocalDate.now());
         return "booking_update";
     }
 
@@ -73,7 +85,7 @@ public class BookingController {
                 booking.setId(id);
                 return "booking_update";
             }
-            bookingService.updateBooking(booking);
+            bookingService.addBooking(booking);
             model.addAttribute("booking", bookingService.getAllBookings());
         return"redirect:/booking/view";
     }
