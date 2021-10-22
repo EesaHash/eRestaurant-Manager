@@ -152,24 +152,31 @@
           <!-- Card -->
           <div class="card mb-4">
             <div class="card-body">
-              <div th:if="${CostDeducted == null}">
               <a class="dark-grey-text d-flex justify-content-between" data-toggle="collapse" href="#collapseExample"
                  aria-expanded="false" aria-controls="collapseExample">
                 Add a discount code (optional)
                 <span><i class="fas fa-chevron-down pt-1"></i></span>
               </a>
-
                 <div class="collapse" id="collapseExample">
+                  <br>
                   <form th:action="@{/cart/applyCode}" method="post" th:object="${promoDto}">
                     <div class="form-group">
                       <input type="text" class="form-control" required th:field="*{code}" name="name" id="name" placeholder="Enter discount code">
                     </div>
-                    <button type="submit" class="btn btn-outline-success">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Apply</button>
                   </form>
                 </div>
+              <div th:if="${param.emptyCart}">
+                <br>
+                <div class="alert alert-danger">Cart is Empty!</div>
               </div>
-              <div th:if="${CostDeducted != null}">
-                Already apply promo code
+              <div th:if="${param.promoNotFound}">
+                <br>
+                <div class="alert alert-danger">Invalid Promo Code!</div>
+              </div>
+              <div th:if="${param.success}">
+                <br>
+                <div class="alert alert-success">Promo Code has been applied!</div>
               </div>
             </div>
           </div>
