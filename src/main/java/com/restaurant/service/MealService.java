@@ -34,4 +34,8 @@ public class MealService {
         return mealRepository.findMealsByCategoryId(id);
     }
 
+    public Meal getMealByName(String name) {
+        return mealRepository.findMealByName(name);
+    }
+
 }

@@ -142,6 +142,11 @@
                   <span><strong>$<span th:text="${costAfterPromo}"></span></strong></span>
                 </li>
               </ul>
+              <div th:if="${param.emptyCartTwo}">
+                <div class="alert alert-danger">Cart is empty!</div>
+              </div>
+
+
 
               <a th:href="@{/checkout}" class="btn btn-outline-primary btn-block waves-effect waves-dark">Proceed to checkout</a>
 

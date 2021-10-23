@@ -2,25 +2,21 @@ package com.restaurant.controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.concurrent.ThreadLocalRandom;
 import com.restaurant.dto.PromoDTO;
 import com.restaurant.global.GlobalData;
 import com.restaurant.model.Meal;
 import com.restaurant.model.Order;
-import com.restaurant.model.Person;
-import com.restaurant.model.Promo;
 import com.restaurant.service.MealService;
 import com.restaurant.service.OrderService;
 import com.restaurant.service.PersonService;
 import com.restaurant.service.PromoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DecimalFormat;
-import java.util.Optional;
+import java.util.List;
 
 @Controller
 public class CartController{
@@ -85,10 +81,18 @@ public class CartController{
 
     @GetMapping("/checkout")
     public String checkout(Model model) {
-        model.addAttribute(GlobalData.cart.stream().mapToDouble(Meal::getPrice).sum());
+        if (GlobalData.cart.isEmpty()) {
+            return "redirect:/cart?emptyCartTwo";
+        }
         Order order = new Order();
         order.setTotal(GlobalData.cart.stream().mapToDouble(Meal::getPrice).sum());
-        order.setDiscount(GlobalData.costDeducted);
+        if (GlobalData.costDeducted == null) {
+            order.setDiscount(0.0);
+        }
+        else {
+            order.setDiscount(GlobalData.costDeducted);
+        }
+
         order.setEmail(personService.getLoggedInPerson().get().getEmail());
         order.setOrderDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
         ArrayList<String> orderedMeals = new ArrayList<>();
@@ -97,7 +101,23 @@ public class CartController{
         }
         order.setMeals(orderedMeals);
         orderService.addOrder(order);
-        return "checkout";
 
+        List<Meal> meals = new ArrayList<>();
+        for (String s : order.getMeals()) {
+            meals.add(mealService.getMealByName(s));
+        }
+        model.addAttribute("meals",meals);
+        model.addAttribute("total",order.getTotal());
+        model.addAttribute("email",order.getEmail());
+        model.addAttribute("date",order.getOrderDate());
+        model.addAttribute("discount",order.getDiscount());
+        model.addAttribute("status",order.isComplete());
+        model.addAttribute("payable",order.getTotal()- order.getDiscount());
+        model.addAttribute("orderID","Order #"+order.getId());
+        GlobalData.cart = new ArrayList<>();
+        GlobalData.totalCost = 0;
+        GlobalData.costAfterPromo = 0.0;
+        GlobalData.costDeducted = 0.0;
+        return "invoice";
     }
 }

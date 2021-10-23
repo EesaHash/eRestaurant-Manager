@@ -18,11 +18,6 @@ public class LoginController {
 
     @GetMapping("/")
     public String home() {
-        /*
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        log.info( principal.toString());
-        To get currently logged in user's email
-         */
         return "redirect:/menu";
     }
 }

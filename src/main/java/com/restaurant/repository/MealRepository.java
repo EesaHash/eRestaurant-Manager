@@ -9,4 +9,6 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
 
     List<Meal> findMealsByCategoryId(int id);
 
+    Meal findMealByName(String name);
+
 }
