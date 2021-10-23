@@ -2,14 +2,8 @@ package com.restaurant.controller;
 
 
 import com.restaurant.dto.MealDTO;
-import com.restaurant.model.Category;
-import com.restaurant.model.Meal;
-import com.restaurant.model.Promo;
-import com.restaurant.model.Tables;
-import com.restaurant.service.CategoryService;
-import com.restaurant.service.MealService;
-import com.restaurant.service.PromoService;
-import com.restaurant.service.TableService;
+import com.restaurant.model.*;
+import com.restaurant.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +30,8 @@ public class AdministratorController {
     TableService tableService;
     @Autowired
     PromoService promoService;
+    @Autowired
+    OrderService orderService;
 
     @GetMapping("/admin")
     public String viewAdmin() {
@@ -222,6 +218,26 @@ public class AdministratorController {
         model.addAttribute("mealDTO", mealDTO);
 
         return "admin_meal_add";
+    }
+
+    @GetMapping("/admin/orders")
+    public String viewOrders(Model model) {
+        model.addAttribute("orders",orderService.findAllOrders());
+        return "admin_orders_view";
+    }
+
+    @GetMapping("/admin/order/delete/{id}")
+    public String cancelOrder(@PathVariable int id) {
+        orderService.deleteById(id);
+        return "redirect:/admin/orders";
+    }
+
+    @GetMapping("/admin/order/complete/{id}")
+    public String markOrderAsComplete(@PathVariable int id) {
+        Order order = orderService.getOrder(id).get();
+        order.setComplete(!order.isComplete());
+        orderService.addOrder(order);
+        return "redirect:/admin/orders";
     }
 
 
