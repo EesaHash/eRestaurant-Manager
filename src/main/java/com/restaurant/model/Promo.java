@@ -1,6 +1,8 @@
 package com.restaurant.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,8 @@ import javax.persistence.Id;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Promo {
 
     @Id
@@ -17,4 +21,6 @@ public class Promo {
     private int code;
     private double percentage;
     private String description;
+
+
 }

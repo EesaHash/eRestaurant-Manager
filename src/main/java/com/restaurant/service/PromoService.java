@@ -6,6 +6,7 @@ import com.restaurant.repository.PromoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,10 @@ public class PromoService {
         return promoRepository.findAll();
     }
 
-    public Promo findPromoByCode(int code){ return promoRepository.findPromoByCode(code);}
+    public Promo findPromoByCode(int code){
+        Promo promo = promoRepository.findPromoByCode(code);
+        return promo;
+    }
 
     public void addPromo(Promo promo) {
         promoRepository.save(promo);
