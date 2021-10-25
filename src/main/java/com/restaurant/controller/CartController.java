@@ -57,7 +57,7 @@ public class CartController{
     @PostMapping("/cart/applyCode")
     public String applyCode(@RequestParam("code") int code){
         Promo promo1 = promoService.findPromoByCode(code);
-        GlobalData.costAfterPromo = GlobalData.totalCost * promo1.getPercentage();
+        GlobalData.costAfterPromo = GlobalData.totalCost * convertPercentageToDecimal(promo1.getPercentage());
         GlobalData.costDeducted = GlobalData.totalCost - GlobalData.costAfterPromo;
         return "redirect:/cart";
     }
@@ -66,5 +66,10 @@ public class CartController{
     public String checkout(Model model) {
         model.addAttribute(GlobalData.cart.stream().mapToDouble(Meal::getPrice).sum());
         return "checkout";
+    }
+
+    public double convertPercentageToDecimal(double p){
+        double p2 = 1-(p/100);
+        return p2;
     }
 }

@@ -3,7 +3,6 @@ package com.restaurant;
 import com.restaurant.model.Promo;
 import com.restaurant.repository.PromoRepository;
 import com.restaurant.service.PromoService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -37,7 +36,6 @@ class RestaurantApplicationTests {
 		when(promoRepository.findPromoByCode(anyInt())).thenReturn(promo);
 
 		Promo p = promoService.findPromoByCode(1200);
-
 		assertNotNull(p);
 		assertEquals(1200,p.getCode());
 	}

@@ -2,9 +2,7 @@ package com.restaurant;
 
 import com.restaurant.model.Category;
 import com.restaurant.model.Meal;
-import com.restaurant.repository.CategoryRepository;
 import com.restaurant.repository.MealRepository;
-import com.restaurant.service.CategoryService;
 import com.restaurant.service.MealService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
