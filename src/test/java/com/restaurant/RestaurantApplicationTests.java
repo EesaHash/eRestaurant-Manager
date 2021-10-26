@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
-
 @SpringBootTest
 class RestaurantApplicationTests {
 
@@ -26,7 +25,7 @@ class RestaurantApplicationTests {
 	PromoService promoService;
 
 	@Test
-	final void testFindPromoByCode(){
+	final void testFindPromoByCode() {
 		Promo promo = new Promo();
 		promo.setCode(1200);
 		promo.setId(11);
@@ -37,13 +36,13 @@ class RestaurantApplicationTests {
 
 		Promo p = promoService.findPromoByCode(1200);
 		assertNotNull(p);
-		assertEquals(1200,p.getCode());
+		assertEquals(1200, p.getCode());
 	}
 
 	@Test
-	final void testGetAllPromo(){
-		Promo promo1 = new Promo(11,1211,0.8,"20 percentdiscount");
-		Promo promo2 = new Promo(12,1212,0.9,"10 percentdiscount");
+	final void testGetAllPromo() {
+		Promo promo1 = new Promo(11, 1211, 0.8, "20 percentdiscount");
+		Promo promo2 = new Promo(12, 1212, 0.9, "10 percentdiscount");
 		List<Promo> listOfPromo = new LinkedList<Promo>();
 		listOfPromo.add(promo1);
 		listOfPromo.add(promo2);
@@ -55,18 +54,18 @@ class RestaurantApplicationTests {
 	}
 
 	@Test
-	final void testAddPromo(){
-		Promo promo1 = new Promo(11,1211,0.8,"20 percentdiscount");
+	final void testAddPromo() {
+		Promo promo1 = new Promo(11, 1211, 0.8, "20 percentdiscount");
 		promoRepository.save(promo1);
 		when(promoRepository.findPromoByCode(anyInt())).thenReturn(promo1);
 		Promo p = promoService.findPromoByCode(1211);
 
-		assertEquals(1211,p.getCode());
+		assertEquals(1211, p.getCode());
 	}
 
 	@Test
-	final void testRemovePromoByIdPromo(){
-		Promo promo1 = new Promo(11,1211,0.8,"20 percentdiscount");
+	final void testRemovePromoByIdPromo() {
+		Promo promo1 = new Promo(11, 1211, 0.8, "20 percentdiscount");
 		promoRepository.deleteById(11);
 		when(promoRepository.findPromoByCode(anyInt())).thenReturn(null);
 		Promo p = promoService.findPromoByCode(1211);

@@ -1,6 +1,5 @@
 package com.restaurant.controller;
 
-
 import com.restaurant.dto.MealDTO;
 import com.restaurant.model.*;
 import com.restaurant.service.*;
@@ -19,7 +18,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-@Controller @Slf4j
+@Controller
+@Slf4j
 public class AdministratorController {
 
     @Autowired
@@ -66,15 +66,15 @@ public class AdministratorController {
     public String updateCategory(@PathVariable int id, Model model) {
         Optional<Category> category = categoryService.retrieveCategoryByID(id);
         if (category.isPresent()) {
-            model.addAttribute("category",category.get());
+            model.addAttribute("category", category.get());
             return "admin_categories_add";
         }
         return "redirect:/admin/categories/add?fail";
     }
 
-    //Handle Table
+    // Handle Table
     @GetMapping("/admin/table")
-    public String viewTables(Model model){
+    public String viewTables(Model model) {
         model.addAttribute("tables", tableService.getAllTable());
         return "admin_table_view";
     }
@@ -101,14 +101,14 @@ public class AdministratorController {
     public String updateTable(@PathVariable int id, Model model) {
         Optional<Tables> table = tableService.retrieveTableByID(id);
         if (table.isPresent()) {
-            model.addAttribute("tables",table.get());
+            model.addAttribute("tables", table.get());
             return "admin_table_add";
         }
         return "redirect:/admin/table/add?fail";
     }
 
     @GetMapping("/admin/promo")
-    public String viewPromos(Model model){
+    public String viewPromos(Model model) {
         model.addAttribute("promos", promoService.getAllPromo());
         return "admin_promo_view";
     }
@@ -135,14 +135,14 @@ public class AdministratorController {
     public String updatePromo(@PathVariable int id, Model model) {
         Optional<Promo> promo = promoService.retrievePromoByID(id);
         if (promo.isPresent()) {
-            model.addAttribute("promos",promo.get());
+            model.addAttribute("promos", promo.get());
             return "admin_promo_add";
         }
         return "redirect:/admin/promo/add?fail";
     }
 
     /*
-    Handling Meals
+     * Handling Meals
      */
     @GetMapping("/admin/meals")
     public String products(Model model) {
@@ -152,17 +152,15 @@ public class AdministratorController {
 
     @GetMapping("/admin/meals/add")
     public String productAddGet(Model model) {
-        model.addAttribute("mealDTO",new MealDTO());
-        model.addAttribute("categories",categoryService.getAllCategories());
+        model.addAttribute("mealDTO", new MealDTO());
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "admin_meal_add";
     }
 
     @PostMapping("/admin/meals/add")
-    public String productAddPost(
-            @ModelAttribute("mealDTO") MealDTO mealDTO,
-            @RequestParam("mealImage") MultipartFile file,
-            @RequestParam("imageName") String imgName
-    ) throws IOException {
+    public String productAddPost(@ModelAttribute("mealDTO") MealDTO mealDTO,
+            @RequestParam("mealImage") MultipartFile file, @RequestParam("imageName") String imgName)
+            throws IOException {
 
         Meal meal = new Meal();
         meal.setId(mealDTO.getId());
@@ -173,14 +171,13 @@ public class AdministratorController {
         log.info(String.valueOf(mealDTO.getCalories()));
         meal.setDescription(mealDTO.getDescription());
         /*
-        Saving image to static/productImages
+         * Saving image to static/productImages
          */
         File path = new File(ResourceUtils.getURL("classpath:static/images").getPath()).getAbsoluteFile();
         String uploadDir = path.getAbsolutePath();
 
-        //Shows where file is stored
-        log.info("IMAGE STORED IN LOCATION: "+uploadDir);
-
+        // Shows where file is stored
+        log.info("IMAGE STORED IN LOCATION: " + uploadDir);
 
         String imageUUID;
         if (!file.isEmpty()) {
@@ -213,7 +210,6 @@ public class AdministratorController {
         mealDTO.setDescription(product.getDescription());
         mealDTO.setImageLink(mealDTO.getImageLink());
 
-
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("mealDTO", mealDTO);
 
@@ -222,7 +218,7 @@ public class AdministratorController {
 
     @GetMapping("/admin/orders")
     public String viewOrders(Model model) {
-        model.addAttribute("orders",orderService.findAllOrders());
+        model.addAttribute("orders", orderService.findAllOrders());
         return "admin_orders_view";
     }
 
@@ -239,7 +235,5 @@ public class AdministratorController {
         orderService.addOrder(order);
         return "redirect:/admin/orders";
     }
-
-
 
 }
