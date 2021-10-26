@@ -224,6 +224,4 @@ public class AdministratorController {
         return "admin_meal_add";
     }
 
-
-
 }

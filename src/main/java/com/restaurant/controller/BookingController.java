@@ -10,12 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Book;
 import java.io.IOException;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Optional;
 
 @Controller
 public class BookingController {
@@ -73,19 +70,23 @@ public class BookingController {
         bookingDTO.setDate(new java.sql.Date(booking.getDate().getTime()));
         bookingDTO.setTime(booking.getTime().toString());
         bookingDTO.setNotes(booking.getNotes());
-        model.addAttribute("bookingDTO", bookingDTO);
         model.addAttribute("minDate", LocalDate.now());
+        model.addAttribute("bookingDTO", bookingDTO);
+
+//        bookingService.addBooking(booking);
+//        model.addAttribute("bookingDTO", bookingService.getAllBookings());
+        //return "redirect:/booking/update";
         return "booking_update";
     }
 
     @PostMapping("/bookings/update/{id}")
-    public String updateBooking(@PathVariable int id, Booking booking, Model model,
-          BindingResult result) {
+    public String updateBooking(@PathVariable("id") int id, Booking bookingDTO,
+          BindingResult result, Model model) {
             if (result.hasErrors()) {
-                booking.setId(id);
+                bookingDTO.setId(id);
                 return "booking_update";
             }
-            bookingService.addBooking(booking);
+            bookingService.addBooking(bookingDTO);
             model.addAttribute("bookingDTO", bookingService.getAllBookings());
         return"redirect:/booking/view";
     }
