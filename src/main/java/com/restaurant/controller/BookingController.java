@@ -4,6 +4,7 @@ import com.restaurant.dto.BookingDTO;
 import com.restaurant.model.Booking;
 import com.restaurant.service.BookingService;
 import com.restaurant.service.TableService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Controller
+@Slf4j
 public class BookingController {
     BookingService bookingService;
     TableService tableService;
@@ -39,11 +41,13 @@ public class BookingController {
 //        bookingService.findBookingByDate(date);
 //        return "booking_view";
 //    }
-
+//
     @GetMapping("/booking/create")
     public String createBooking(Model model){
         model.addAttribute("bookingDTO", new BookingDTO());
         model.addAttribute("minDate", LocalDate.now());
+        model.addAttribute("title","New Booking");
+        model.addAttribute("submitBtn","Book");
 //        Time minTime= Time.valueOf(LocalTime.now());
 //        model.addAttribute("minTime",minTime);
         return "booking_create";
@@ -52,10 +56,12 @@ public class BookingController {
     @PostMapping("/booking/create")
     public String saveBooking(@ModelAttribute("bookingDTO") BookingDTO bookingDTO) throws IOException {
         Booking booking= new Booking();
+        booking.setId(bookingDTO.getId());
         booking.setNumPeople(bookingDTO.getNumPeople());
         booking.setDate(bookingDTO.getDate());
         booking.setTime(LocalTime.parse(bookingDTO.getTime()));
         booking.setNotes(bookingDTO.getNotes());
+        //log.info(String.valueOf("Booking ID"+bookingDTO.getId()));
 //        booking.setTableModel(findAvailableTable());
         bookingService.addBooking(booking);
         return "redirect:/booking/view";
@@ -66,30 +72,36 @@ public class BookingController {
         Booking booking= bookingService.findBookingById(id)
                 .orElseThrow(()-> new IllegalArgumentException("Invalid booking id"+ id));
         BookingDTO bookingDTO=new BookingDTO();
+        bookingDTO.setId(booking.getId());
         bookingDTO.setNumPeople(booking.getNumPeople());
         bookingDTO.setDate(new java.sql.Date(booking.getDate().getTime()));
         bookingDTO.setTime(booking.getTime().toString());
         bookingDTO.setNotes(booking.getNotes());
         model.addAttribute("minDate", LocalDate.now());
         model.addAttribute("bookingDTO", bookingDTO);
+        model.addAttribute("title","Update Booking");
+        model.addAttribute("submitBtn","Update");
+
+        log.info(String.valueOf(bookingDTO.getId()));
 
 //        bookingService.addBooking(booking);
 //        model.addAttribute("bookingDTO", bookingService.getAllBookings());
         //return "redirect:/booking/update";
-        return "booking_update";
+        return "booking_create";
     }
 
-    @PostMapping("/bookings/update/{id}")
-    public String updateBooking(@PathVariable("id") int id, Booking bookingDTO,
-          BindingResult result, Model model) {
-            if (result.hasErrors()) {
-                bookingDTO.setId(id);
-                return "booking_update";
-            }
-            bookingService.addBooking(bookingDTO);
-            model.addAttribute("bookingDTO", bookingService.getAllBookings());
-        return"redirect:/booking/view";
-    }
+//    @GetMapping("/booking/update/{id}")
+//    public String updateBooking(@PathVariable("id") int id, Booking bookingDTO,
+//          BindingResult result, Model model) {
+//            log.info(bookingDTO.toString());
+//            if (result.hasErrors()) {
+//                bookingDTO.setId(id);
+//                return "booking_update";
+//            }
+//            bookingService.addBooking(bookingDTO);
+//            model.addAttribute("bookingDTO", bookingService.getAllBookings());
+//        return"redirect:/booking/view";
+//    }
 
     @GetMapping("/booking/delete/{id}")
     public String deleteBooking(@PathVariable int id){

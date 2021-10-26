@@ -52,7 +52,8 @@
 </nav>
 
 <div class="container">
-    <h3>New Booking</h3>
+    <br>
+    <h3 th:text="${title}"></h3>
     <form th:action="@{/booking/create}" method="post" th:object="${bookingDTO}" enctype="multipart/form-data">
         <div class="row">
             <div class="col-sm-5">
@@ -80,7 +81,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success">book</button>
+                <button type="submit" class="btn btn-success" th:text="${submitBtn}"></button>
                 <a class="btn btn-danger" th:href="@{/booking/view}"  href="#">Cancel</a>
             </div>
         </div>
