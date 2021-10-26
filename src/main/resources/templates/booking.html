@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <img th:src="@{/images/logo.png}"  src="../static/images/logo.png" width="auto" height="40" class="d-inline-block align-top" alt=""/>
-            Booking
+            <a>Le'Bistrot de Andre</a>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,9 +22,6 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/}" href="#">Home</a>
-                </li>
                 <li class="nav-item active">
                     <a class="nav-link" th:href="@{/menu}" href="#">Menu</a>
                 </li>
@@ -35,25 +32,28 @@
                     <a class="nav-link" th:href="@{/booking}" href="#">Bookings</a>
                 </li>
                 <li class="nav-item active">
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">Logout</a>
+                </li>
+                <li class="nav-item active">
                     <a class="nav-link" th:href="@{/cart}" href="#">Cart</a>
                 </li>
                 <li class="nav-item active">
                     <span class="nav-link" th:text="${cartCount}">0</span>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">Logout</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 <div class="container">
+    <br>
+    <h2>Manage Bookings</h2>
+    <br>
     <div class="row">
         <div class="col-sm-2">
-            <a class="btn btn-success" th:href="@{/booking/create}" href="#">New Reservation</a>
+            <a class="btn btn-success btn-lg btn-block" th:href="@{/booking/create}" href="#">New Reservation</a>
         </div>
         <div class="col-sm-2">
-            <a class="btn btn-success" th:href="@{/booking/view}"  href="#">View Reservations</a>
+            <a class="btn btn-success btn-lg btn-block" th:href="@{/booking/view}"  href="#">View Reservations</a>
         </div>
     </div>
 </div>

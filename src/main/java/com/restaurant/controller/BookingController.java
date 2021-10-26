@@ -1,6 +1,7 @@
 package com.restaurant.controller;
 
 import com.restaurant.dto.BookingDTO;
+import com.restaurant.global.GlobalData;
 import com.restaurant.model.Booking;
 import com.restaurant.service.BookingService;
 import com.restaurant.service.TableService;
@@ -28,10 +29,14 @@ public class BookingController {
     }
 
     @GetMapping("/booking")
-    public String bookings(){return "booking";}
+    public String bookings(Model model){
+        model.addAttribute("cartCount", GlobalData.cart.size());
+        return "booking";
+    }
 
     @GetMapping("/booking/view")
     public String getAllBookings(Model model){
+        model.addAttribute("cartCount", GlobalData.cart.size());
         model.addAttribute("bookings", bookingService.getAllBookings());
         return "booking_view";
     }
@@ -44,6 +49,7 @@ public class BookingController {
 //
     @GetMapping("/booking/create")
     public String createBooking(Model model){
+        model.addAttribute("cartCount", GlobalData.cart.size());
         model.addAttribute("bookingDTO", new BookingDTO());
         model.addAttribute("minDate", LocalDate.now());
         model.addAttribute("title","New Booking");
@@ -68,7 +74,8 @@ public class BookingController {
     }
 
     @GetMapping("/booking/edit/{id}")
-    public String showUpdateForm(@PathVariable ("id") int id,Model model){
+    public String showUpdateForm(@PathVariable ("id") int id,Model model) {
+        model.addAttribute("cartCount", GlobalData.cart.size());
         Booking booking= bookingService.findBookingById(id)
                 .orElseThrow(()-> new IllegalArgumentException("Invalid booking id"+ id));
         BookingDTO bookingDTO=new BookingDTO();

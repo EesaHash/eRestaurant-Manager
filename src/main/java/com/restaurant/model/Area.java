@@ -14,7 +14,7 @@ public enum Area {
     private Long id;
     private String area;
 
-    Area(Long id, String area){
+    Area(Long id, String area) {
         this.id=id;
         this.area=area;
     }
