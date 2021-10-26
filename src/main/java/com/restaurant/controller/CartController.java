@@ -19,7 +19,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 @Controller
-public class CartController{
+public class CartController {
 
     @Autowired
     MealService mealService;
@@ -33,7 +33,6 @@ public class CartController{
     @Autowired
     PersonService personService;
 
-
     @GetMapping("/addToCart/{id}")
     public String addToCart(@PathVariable int id) {
         GlobalData.cart.add(mealService.getMealById(id).get());
@@ -45,10 +44,10 @@ public class CartController{
         model.addAttribute("cartCount", GlobalData.cart.size());
         GlobalData.totalCost = GlobalData.cart.stream().mapToDouble(Meal::getPrice).sum();
 
-        if(GlobalData.costDeducted == null){
+        if (GlobalData.costDeducted == null) {
             GlobalData.costAfterPromo = GlobalData.totalCost;
             model.addAttribute("costAfterPromo", GlobalData.costAfterPromo);
-        }else{
+        } else {
             DecimalFormat numberFormat = new DecimalFormat("#.00");
             model.addAttribute("costDeducted", numberFormat.format(GlobalData.costDeducted));
             model.addAttribute("costAfterPromo", numberFormat.format(GlobalData.costAfterPromo));
@@ -66,7 +65,7 @@ public class CartController{
     }
 
     @PostMapping("/cart/applyCode")
-    public String applyCode(@RequestParam("code") int code){
+    public String applyCode(@RequestParam("code") int code) {
         GlobalData.promo = promoService.findPromoByCode(code);
         if (GlobalData.promo == null) {
             return "redirect:/cart?promoNotFound";
@@ -75,6 +74,8 @@ public class CartController{
             return "redirect:/cart?emptyCart";
         }
         GlobalData.costAfterPromo = GlobalData.totalCost * GlobalData.promo.getPercentage();
+        Promo promo1 = promoService.findPromoByCode(code);
+        GlobalData.costAfterPromo = GlobalData.totalCost * convertPercentageToDecimal(promo1.getPercentage());
         GlobalData.costDeducted = GlobalData.totalCost - GlobalData.costAfterPromo;
         return "redirect:/cart?success";
     }
@@ -88,8 +89,7 @@ public class CartController{
         order.setTotal(GlobalData.cart.stream().mapToDouble(Meal::getPrice).sum());
         if (GlobalData.costDeducted == null) {
             order.setDiscount(0.0);
-        }
-        else {
+        } else {
             order.setDiscount(GlobalData.costDeducted);
         }
 
@@ -106,18 +106,23 @@ public class CartController{
         for (String s : order.getMeals()) {
             meals.add(mealService.getMealByName(s));
         }
-        model.addAttribute("meals",meals);
-        model.addAttribute("total",order.getTotal());
-        model.addAttribute("email",order.getEmail());
-        model.addAttribute("date",order.getOrderDate());
-        model.addAttribute("discount",order.getDiscount());
-        model.addAttribute("status",order.isComplete());
-        model.addAttribute("payable",order.getTotal()- order.getDiscount());
-        model.addAttribute("orderID","Order #"+order.getId());
+        model.addAttribute("meals", meals);
+        model.addAttribute("total", order.getTotal());
+        model.addAttribute("email", order.getEmail());
+        model.addAttribute("date", order.getOrderDate());
+        model.addAttribute("discount", order.getDiscount());
+        model.addAttribute("status", order.isComplete());
+        model.addAttribute("payable", order.getTotal() - order.getDiscount());
+        model.addAttribute("orderID", "Order #" + order.getId());
         GlobalData.cart = new ArrayList<>();
         GlobalData.totalCost = 0;
         GlobalData.costAfterPromo = 0.0;
         GlobalData.costDeducted = 0.0;
         return "invoice";
+    }
+
+    public double convertPercentageToDecimal(double p) {
+        double p2 = 1 - (p / 100);
+        return p2;
     }
 }

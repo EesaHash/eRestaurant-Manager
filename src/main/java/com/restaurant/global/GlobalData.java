@@ -2,6 +2,8 @@ package com.restaurant.global;
 
 import com.restaurant.model.Meal;
 import com.restaurant.model.Promo;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
