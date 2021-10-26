@@ -6,6 +6,7 @@ import com.restaurant.dto.PromoDTO;
 import com.restaurant.global.GlobalData;
 import com.restaurant.model.Meal;
 import com.restaurant.model.Order;
+import com.restaurant.model.Promo;
 import com.restaurant.service.MealService;
 import com.restaurant.service.OrderService;
 import com.restaurant.service.PersonService;

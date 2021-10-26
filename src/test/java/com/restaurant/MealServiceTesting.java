@@ -59,7 +59,6 @@ public class MealServiceTesting {
         mealRepository.delete(meal1);
         when(mealRepository.findAll()).thenReturn(null);
         List<Meal> listOfMeals2 = mealService.getMeals();
-
         assertNull(listOfMeals2);
     }
 
