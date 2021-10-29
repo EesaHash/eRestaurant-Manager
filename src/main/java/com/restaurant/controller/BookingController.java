@@ -63,6 +63,8 @@ public class BookingController {
     public String saveBooking(@ModelAttribute("bookingDTO") BookingDTO bookingDTO) throws IOException {
         Booking booking= new Booking();
         booking.setId(bookingDTO.getId());
+        booking.setFName(bookingDTO.getFName());
+        booking.setLName(bookingDTO.getLName());
         booking.setNumPeople(bookingDTO.getNumPeople());
         booking.setDate(bookingDTO.getDate());
         booking.setTime(LocalTime.parse(bookingDTO.getTime()));
@@ -80,6 +82,8 @@ public class BookingController {
                 .orElseThrow(()-> new IllegalArgumentException("Invalid booking id"+ id));
         BookingDTO bookingDTO=new BookingDTO();
         bookingDTO.setId(booking.getId());
+        bookingDTO.setFName(booking.getFName());
+        bookingDTO.setLName(booking.getLName());
         bookingDTO.setNumPeople(booking.getNumPeople());
         bookingDTO.setDate(new java.sql.Date(booking.getDate().getTime()));
         bookingDTO.setTime(booking.getTime().toString());
@@ -91,24 +95,9 @@ public class BookingController {
 
         log.info(String.valueOf(bookingDTO.getId()));
 
-//        bookingService.addBooking(booking);
-//        model.addAttribute("bookingDTO", bookingService.getAllBookings());
-        //return "redirect:/booking/update";
         return "booking_create";
     }
 
-//    @GetMapping("/booking/update/{id}")
-//    public String updateBooking(@PathVariable("id") int id, Booking bookingDTO,
-//          BindingResult result, Model model) {
-//            log.info(bookingDTO.toString());
-//            if (result.hasErrors()) {
-//                bookingDTO.setId(id);
-//                return "booking_update";
-//            }
-//            bookingService.addBooking(bookingDTO);
-//            model.addAttribute("bookingDTO", bookingService.getAllBookings());
-//        return"redirect:/booking/view";
-//    }
 
     @GetMapping("/booking/delete/{id}")
     public String deleteBooking(@PathVariable int id){

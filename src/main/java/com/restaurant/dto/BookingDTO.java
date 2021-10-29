@@ -12,8 +12,8 @@ import java.time.LocalTime;
 
 @Data
 public class BookingDTO {
-//    private String fName;
-//    private String lName;
+    private String fName;
+    private String lName;
 //    private Person person;
     private int id;
     private int numPeople;

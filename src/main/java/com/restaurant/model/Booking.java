@@ -15,6 +15,8 @@ public class Booking implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String fName;
+    private String lName;
     private int numPeople;
     @Basic
     @Temporal(TemporalType.DATE)
