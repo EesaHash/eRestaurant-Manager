@@ -9,9 +9,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
     <title>Menu</title>
 </head>
-<body style="background-image:url(../static/images/backgroundimageforpages.jpg);background-repeat:no-repeat; background-size: cover;">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+<body th:style="|background:url(@{/images/backgroundimageforpages.jpg});background-repeat:no-repeat;background-size:cover|">
+
+<nav class="navbar navbar-expand-lg navbar-light .bg-warning" >
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <img th:src="@{/images/logo.png}"  src="../static/images/logo.png" width="auto" height="40" class="d-inline-block align-top" alt=""/>
@@ -46,21 +47,20 @@
         </div>
     </div>
 </nav>
-
-<div class="container" style="background-image:url(../static/images/categorybackground.jpg);background-repeat:no-repeat; background-size: cover;margin-top: 30px">
+    <div class="container">
     <div  class="row">
-        <div  class="col-sm-3">
+        <div class="col-sm-3">
             <h4>Categories</h4>
             <ul class="list-group">
-                <a th:href="@{/menu}"><li class="list-group-item">All Cuisine</li></a>
+                <a th:href="@{/menu}"><li class="list-group-item" th:style="|background:url(@{/images/categorybackground.jpg});background-repeat:no-repeat;background-size:cover|">All Cuisine</li></a>
                 <a href="" th:each="category, iStat : ${categories}"
                    th:href="@{/menu/category/{id}(id=${category.id})}"><li
-                        class="list-group-item" th:text="${category.title}"></li></a>
+                        class="list-group-item" th:text="${category.title}" th:style="|background:url(@{/images/categorybackground.jpg});background-repeat:no-repeat;background-size:cover|"></li></a>
 
             </ul>
         </div>
         <div class="col-sm-9">
-            <div class="card" style="background-image:url(../static/images/categorybackground.jpg);background-repeat:no-repeat; background-size: cover;margin-top: 20px" th:each="meal : ${meals}">
+            <div class="card" th:style="|background:url(@{/images/categorybackground.jpg});background-repeat:no-repeat;background-size:cover|" th:each="meal : ${meals}">
                 <div class="row no-gutters">
                     <div class="col-sm-5 d-flex justify-content-center">
                         <img class="" height="150px" width="150px" th:src="@{${'/images/' + meal.imageLink}}" th:alt="${meal.name}">
