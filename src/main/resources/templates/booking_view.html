@@ -9,8 +9,8 @@
   <link rel="stylesheet" href="/css/table.css">
   <title>Booking</title>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+<body th:style="|background:url(@{/images/backgroundimageforpages.jpg});background-repeat:no-repeat;background-size:cover|">
+<nav class="navbar navbar-expand-lg navbar-light bg-warning" >
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <img th:src="@{/images/logo.png}"  src="../static/images/logo.png" width="auto" height="40" class="d-inline-block align-top" alt=""/>
@@ -51,11 +51,11 @@
   <br>
   <h2 class="text-center">All Bookings</h2>
   <div class="row justify-content-center">
-  <a th:href="@{/booking/create}" method="get" style="margin: 20px 0" class="btn btn-outline-primary btn">New booking</a>
+  <a th:href="@{/booking/create}" method="get" style="margin: 20px 0" class="btn btn-outline-dark btn">New booking</a>
 </div>
 </div>
-<table class="table table-bordered table-striped text-center">
-  <thead class="thead-light">
+<table class="table table-striped table-dark text-center">
+  <thead class="thead-dark">
   <tr>
     <th></th>
     <th scope="col">Booking ID</th>
